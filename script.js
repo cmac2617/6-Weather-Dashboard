@@ -214,19 +214,19 @@ $(document).on("click", ".pastCity", function () {
                 if (conditions[i] == "Rain") {
                     console.log(conditions[i]);
 
-                    $(dayConditions[i]).attr("src", "../images/rain.png");
+                    $(dayConditions[i]).attr("src", "images/rain.png");
                 }
                 else if (conditions[i] == "Snow") {
-                    $(dayConditions[i]).attr("src", "../images/snow.png");
+                    $(dayConditions[i]).attr("src", "images/snow.png");
                 }
                 else if (conditions[i] == "Clear") {
-                    $(dayConditions[i]).attr("src", "../images/clear.png");
+                    $(dayConditions[i]).attr("src", "images/clear.png");
                 }
                 else if (conditions[i] == "Clouds") {
-                    $(dayConditions[i]).attr("src", "../images/clouds.png");
+                    $(dayConditions[i]).attr("src", "images/clouds.png");
                 }
                 else {
-                    $(dayConditions[i]).attr("src", "../images/extreme.png");
+                    $(dayConditions[i]).attr("src", "images/extreme.png");
                 }
 
                 var info1 = $("<li>").text(dates[i]);
