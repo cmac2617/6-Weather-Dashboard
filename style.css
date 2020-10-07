@@ -1,3 +1,26 @@
 input {
     float: left;
 }
+.col-sm-8 {
+    border: solid gray 5px;
+}
+.five-day {
+    border: solid black 5px;
+}
+header {
+    text-align: center;
+}
+.col-sm-4 {
+    border: solid black 5px;
+}
+.low {
+    color: rgb(20, 224, 20);
+}
+.normal {
+    color: blue;
+}
+.high {
+    color: red;
+}
+
+

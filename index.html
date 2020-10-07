@@ -5,67 +5,78 @@
   <meta charset="utf-8">
   <title>weather</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
+
 <body>
-  
-  <h1>Weather Dashboard</h1>
-  
-  
-<div class = "container-fluid">
-  <div class = "row">
-    <div class = "col-sm-4">
-      <input id = "searchField">
-      <button id = "searchButton" class = "city">Search</button>
-      <div id = "searchHistory">Search History</div>
+  <header>
+    <h1>Weather Dashboard</h1>
+  </header>
 
-    </div>
-    <div class = "col-sm-8">
-      <div class = "current">
-Current Conditions
-      </div>
-      <div class = "five-day row">
-        <div id = "dayOne" class="card col-sm-2" style="width: 18rem;">
-          <img src="..." id = "dayOneCondition" class="card-img-top day" alt="...">
-          <div id = "dayOneInfo" class="card-body">
-            <li id = "infoOne"></li>
-            
-          </div>
-        </div>
-        <div id = "dayTwo" class="card col-sm-2" style="width: 18rem;">
-          <img src="..." id = "dayTwoCondition" class="card-img-top" alt="...">
-          <div class="card-body">
-            
-          </div>
-        </div>
-        <div id = "dayThree" class="card col-sm-2" style="width: 18rem;">
-          <img src="..." id = "dayThreeCondition" class="card-img-top" alt="...">
-          <div class="card-body">
-            
-          </div>
-        </div>
-        <div id = "dayFour" class="card col-sm-2" style="width: 18rem;">
-          <img src="..." id = "dayFourCondition" class="card-img-top" alt="...">
-          <div class="card-body">
-            
-          </div>
-        </div>
-        <div id = "dayFive" class="card col-sm-2" style="width: 18rem;">
-          <img src="..." id = "dayFiveCondition" class="card-img-top" alt="...">
-          <div class="card-body">
-            
-          </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4">
+        <input id="searchField">
+        <button id="searchButton" class="city">Search</button>
+        <div id="searchHistory">
+          <b>Search History</b>
         </div>
 
       </div>
+      <div class="col-sm-8">
+        <div class="current" id = "today">
+          <b>Current Conditions</b>
+          <li id="city">City</li>
+          <li id="currentDate">Date</li>
+          <img src="images/initial.PNG" id="dayCurrentCondition" alt="Weather"></img>
+          <li id="currentTemp">Temperature</li>
+          <li id="currentHumidity">Humidity</li>
+          <li id="windSpeed">Wind Speed</li>
+          <li id="uvIndex">UV Index</li>
+        </div>
+        <div class="five-day row">
+          <div id="dayOne" class="card col-sm-2" style="width: 18rem;">
+            <img src="images/initial.PNG" id="dayOneCondition" class="card-img-top day">
+            <div id="dayOneInfo" class="card-body">
 
+
+            </div>
+          </div>
+          <div id="dayTwo" class="card col-sm-2" style="width: 18rem;">
+            <img src="images/initial.PNG" id="dayTwoCondition" class="card-img-top" alt="Weather">
+
+            <div id="dayTwoInfo" class="card-body">
+
+            </div>
+          </div>
+          <div id="dayThree" class="card col-sm-2" style="width: 18rem;">
+            <img src="images/initial.PNG" id="dayThreeCondition" class="card-img-top" alt="Weather">
+            <div id="dayThreeInfo" class="card-body">
+            </div>
+          </div>
+          <div id="dayFour" class="card col-sm-2" style="width: 18rem;">
+            <img src="images/initial.PNG" id="dayFourCondition" class="card-img-top" alt="Weather">
+            <div id="dayFourInfo" class="card-body">
+
+            </div>
+          </div>
+          <div id="dayFive" class="card col-sm-2" style="width: 18rem;">
+            <img src="images/initial.PNG" id="dayFiveCondition" class="card-img-top" alt="Weather">
+            <div id="dayFiveInfo" class="card-body">
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </div>
-  </div>
 
-  
+
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src = "script.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>

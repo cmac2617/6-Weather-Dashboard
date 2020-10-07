@@ -1,5 +1,5 @@
+// Declaration of variables and arrays to be used.
 var city = "";
-city = "";
 var dates = [];
 var conditions = [];
 var temps = [];
@@ -7,24 +7,164 @@ var humidities = [];
 var windSpeed = "";
 var uvIndexes = "";
 var days = ["#current", "#dayOne", "#dayTwo", "#dayThree", "#dayFour", "#dayFive"];
-var dayInfo = ["#currentInfo", "#dayOneInfo", "dayTwoInfo", "dayThreeInfo", "#dayFourInfo", "#dayFiveInfo"];
+var dayInfo = ["#currentInfo", "#dayOneInfo", "#dayTwoInfo", "#dayThreeInfo", "#dayFourInfo", "#dayFiveInfo"];
 var dayConditions = ["#dayCurrentCondition", "#dayOneCondition", "#dayTwoCondition", "#dayThreeCondition", "#dayFourCondition", "#dayFiveCondition"];
+var lat;
+var lon;
 
-// Search
-
-
+// Search for a particular city's forecast.
 $("#searchButton").click(function () {
     city = $("#searchField").val();
     var searchItem = $("<li>").text($("#searchField").val());
     searchItem.attr("class", "pastCity");
     $("#searchHistory").append(searchItem);
 
+    // Clear previous city's forecast if there was one.
+    for (i = 1; i < 6; i++) {
+        $(dayInfo[i]).empty();
+    }
 
-    // for (i = 0; i = 5; i++) {
-    // $(dayConditions[i]).removeAttr("src");
-    // 
-    // }
-    $("#dayOneInfo").empty();
+    // Run AJAX call to get weather data.
+    $.ajax({
+        url: "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=d49028843b605243d56571f4a6b28da2",
+        method: "GET"
+    })
+        .then(function (response) {
+            // Use for loop to get 6 sets of values. Values for the current day, and the next five.
+            for (i = 0; i < 40;) {
+                // Getting dates first. 40 weather values are generated, spaced 3 hours apart.
+                // Taking the 0, 8th, 16th, 24th, 32nd, and 39th indices of the array to get the proper date values.
+                var date = response.list[i].dt_txt;
+                date = new Date(date);
+                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                dates.push(date);
+
+                // Getting the temperature values.
+                var tempK = response.list[i].main.temp;
+                var tempF = Math.round(tempK * (9 / 5) - 459.67);
+                temps.push(tempF);
+
+                // Getting humidity values.
+                var humidity = response.list[i].main.humidity + "%";
+                humidities.push(humidity);
+
+                // Getting weather conditions. Used to generate appropriate image.
+                var condition = response.list[i].weather[0].main;
+                conditions.push(condition);
+
+                // Get lat and lon coordinates for 2nd API call. I need to obtain the Windspeed and UV index as well.
+                // This API doesn't give that data, but it does return the latitude and longitude, which I can use as search
+                // parameters for a second API call that gives the windspeed and UV Index.
+                lat = response.city.coord.lat;
+                localStorage.setItem("latStringified", lat);
+                lon = response.city.coord.lon;
+                localStorage.setItem("lonStringified", lon);
+
+                // Call the latAndLon function which uses contains AJAX call for second API.
+                latAndLon();
+
+                // After one iteration and obtaining values, I increase the index by either 8, or 7, in the last case,
+                // ensuring the next set of values I get will be for the second day.
+                if (i < 32) {
+                    i = i + 8;
+                }
+                else {
+                    i = i + 7;
+                }
+            }
+        });
+    // Once the six arrays are filled in, I run another function to first fill the data for the current day,
+    // and then loop through the remaining days to fill in appropriate values.
+    var check = setInterval(function () {
+        if (dates.length == 6 || conditions.length == 6 || temps.length == 6 || humidities.length == 6) {
+
+            $("#city").text($("#searchField").val());
+            $("#currentDate").text(dates[0]);
+            $("#currentTemp").text("Temperature: " + temps[0] + " degrees");
+            $("#currentHumidity").text("Humidity: " + humidities[0]);
+
+            // Fill in the rest of the days. The loop contains the current day as well, but this only comes in to play
+            // for the condition of the weather, in order to generate the proper weather symbol. The array of id's ("dayInfo")
+            // that is being used to fill in the rest of the weather information does not have a corresponding id for current
+            // weather within the HTML.
+            for (i = 0; i < 6; i++) {
+                if (conditions[i] == "Rain") {
+                    $(dayConditions[i]).attr("src", "images/rain.png");
+                }
+                else if (conditions[i] == "Snow") {
+                    $(dayConditions[i]).attr("src", "images/snow.png");
+                }
+                else if (conditions[i] == "Clear") {
+                    $(dayConditions[i]).attr("src", "images/clear.png");
+                }
+                else if (conditions[i] == "Clouds") {
+                    $(dayConditions[i]).attr("src", "images/clouds.png");
+                }
+                else {
+                    $(dayConditions[i]).attr("src", "images/extreme.png");
+                }
+
+                var info1 = $("<li>").text(dates[i]);
+                $(dayInfo[i]).append(info1);
+                var info2 = $("<li>").text("Temperature: " + temps[i]);
+                $(dayInfo[i]).append(info2);
+                var info3 = $("<li>").text("Humidity: " + humidities[i]);
+                $(dayInfo[i]).append(info3);
+            }
+            clearInterval(check);
+        }
+    })
+
+    // I reset the arrays back to being empty, so it can build 6 new entries, corresponding to weather
+    // from a different city with a new search. This completes the function generated from the click event.
+    dates = [];
+    conditions = [];
+    temps = [];
+    humidities = [];
+})
+
+// Retrieve the latitude and longitude coordinates from local storage to use in second API.
+lat = localStorage.getItem("latStringified");
+lon = localStorage.getItem("lonStringified");
+
+function latAndLon() {
+    $.ajax({
+        url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "28&lon=" + lon + "81&appid=d49028843b605243d56571f4a6b28da2",
+        method: "GET"
+    })
+        // Display the windspeed and UV Index for current day.
+        // Determine if UV index is low, normal, or high, and apply class.
+        .then(function (response) {
+            windSpeed = response.current.wind_speed;
+            $("#windSpeed").text("Windspeed: " + windSpeed + " mph");
+            uvIndex = response.current.uvi;
+            $("#uvIndex").text("UV Index (green: low, blue: normal, red: high): " + uvIndex);
+
+            if (uvIndex < 5) {
+                $("#uvIndex").removeClass("normal high")
+                $("#uvIndex").addClass("low");
+            }
+            else if (uvIndex < 10) {
+                $("#uvIndex").removeClass("low high")
+                $("#uvIndex").addClass("normal");
+            }
+            else {
+                $("#uvIndex").removeClass("low normal")
+                $("#uvIndex").addClass("high");
+            }
+            
+        })
+};
+
+// Creating click events for the cities previously search for (based on class "pastCity")
+// This function is almost an exact copy of the initial click function, except it doesn't
+// add a new city to the history, and it obtains the "city" value variable differently.
+$(document).on("click", ".pastCity", function () {
+    city = $(this).text();
+
+    for (i = 1; i < 6; i++) {
+        $(dayInfo[i]).empty();
+    }
 
     $.ajax({
         url: "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=d49028843b605243d56571f4a6b28da2",
@@ -34,25 +174,24 @@ $("#searchButton").click(function () {
             console.log(response);
             for (i = 0; i < 40;) {
                 var date = response.list[i].dt_txt;
-                console.log(date);
                 date = new Date(date);
                 date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
-                console.log(date);
                 dates.push(date);
 
                 var tempK = response.list[i].main.temp;
                 var tempF = Math.round(tempK * (9 / 5) - 459.67);
-                console.log(tempF);
                 temps.push(tempF);
 
                 var humidity = response.list[i].main.humidity + "%";
-                console.log(humidity);
                 humidities.push(humidity);
 
                 var condition = response.list[i].weather[0].main;
-                console.log(condition);
                 conditions.push(condition);
 
+                lat = response.city.coord.lat;
+                localStorage.setItem("latStringified", lat);
+                localStorage.setItem("lonStringified", lon);
+                latAndLon();
 
                 if (i < 32) {
                     i = i + 8;
@@ -60,21 +199,18 @@ $("#searchButton").click(function () {
                 else {
                     i = i + 7;
                 }
-
-console.log(conditions);
-
             }
-
         });
 
     var check = setInterval(function () {
         if (dates.length == 6 || conditions.length == 6 || temps.length == 6 || humidities.length == 6) {
-            // console.log(conditions[2]);
-            // console.log(dayConditions);
-            console.log(days[i]);
 
+            $("#city").text(city);
+            $("#currentDate").text(dates[0]);
+            $("#currentTemp").text("Temperature: " + temps[0] + " degrees");
+            $("#currentHumidity").text("Humidity: " + humidities[0]);
 
-            for (i = 1; i < 6; i++) {
+            for (i = 0; i < 6; i++) {
                 if (conditions[i] == "Rain") {
                     console.log(conditions[i]);
 
@@ -93,39 +229,19 @@ console.log(conditions);
                     $(dayConditions[i]).attr("src", "images/extreme.png");
                 }
 
-
-                // days[i].empty();
-                // $("#infoOne").text(temps[i]);
-            
-                var info1 = $("<li>").text(temps[i]);
-                $("#dayOneInfo").append(info1);
-// $(days[i]).append(info1);
-                
-                
-                // $(days[i]).append(dates[i]);
-
-                // var info2 = $("<li>").text("Temperature: " + temps[i]);
-                // $(days[i]).text(info2);
-                // // $(days[i]).append(temps[i]);
-
-                // var info3 = $("<li>").text("Humidity: " + humidities[i]);
-                // $(days[i]).text(info3);
-                // // $(days[i]).append(humidities[i]);
-                
-
+                var info1 = $("<li>").text(dates[i]);
+                $(dayInfo[i]).append(info1);
+                var info2 = $("<li>").text("Temperature: " + temps[i]);
+                $(dayInfo[i]).append(info2);
+                var info3 = $("<li>").text("Humidity: " + humidities[i]);
+                $(dayInfo[i]).append(info3);
             }
-            
             clearInterval(check);
         }
     })
     dates = [];
-                conditions = [];
-                temps = [];
-                humidities = [];
-})
-
-
-$(document).on("click", ".pastCity", function(){
-    console.log("Hey")
-})
+    conditions = [];
+    temps = [];
+    humidities = [];
+});
 
