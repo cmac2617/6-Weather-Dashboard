@@ -19,21 +19,24 @@
       <div class="col-sm-4">
         <input id="searchField">
         <button id="searchButton" class="city">Search</button>
-        <div id="searchHistory">
+        
+        <div>
           <b>Search History</b>
+          <div id = "searchHistory"></div>
         </div>
 
       </div>
       <div class="col-sm-8">
-        <div class="current" id = "today">
-          <b>Current Conditions</b>
-          <li id="city">City</li>
-          <li id="currentDate">Date</li>
-          <img src="images/initial.PNG" id="dayCurrentCondition" alt="Weather"></img>
-          <li id="currentTemp">Temperature</li>
-          <li id="currentHumidity">Humidity</li>
-          <li id="windSpeed">Wind Speed</li>
-          <li id="uvIndex">UV Index</li>
+        <div class="current" id="today">
+          <div class="row">
+            <div class="col-md-8" id = "dayCurrentInfo">
+              
+            </div>
+            <div class="col-md-4">
+              <img src="images/initial.PNG" id="dayCurrentCondition">
+            </div>
+
+          </div>
         </div>
         <div class="five-day row">
           <div id="dayOne" class="card col-sm-2" style="width: 18rem;">

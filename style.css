@@ -2,10 +2,12 @@ input {
     float: left;
 }
 .col-sm-8 {
-    border: solid gray 5px;
+    border-top: solid black 5px;
+    border-right: solid black 5px;
+    border-bottom: solid black 5px;
 }
 .five-day {
-    border: solid black 5px;
+    border-top: solid black 5px;
 }
 header {
     text-align: center;
