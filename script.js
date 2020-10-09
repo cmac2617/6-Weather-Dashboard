@@ -94,7 +94,7 @@ $("#searchButton").click(function () {
             $("#dayCurrentInfo").append(currentInfo2);
             var currentInfo3 = $("<li>").text("Temperature: " + temps[0] + " degrees");
             $("#dayCurrentInfo").append(currentInfo3);
-            var currentInfo4 = $("<li>").text("Temperature: " + humidities[0]);
+            var currentInfo4 = $("<li>").text("Humidity: " + humidities[0]);
             $("#dayCurrentInfo").append(currentInfo4);
 
             if (conditions[0] == "Rain") {
@@ -256,7 +256,7 @@ $(document).on("click", ".pastCity", function () {
             $("#dayCurrentInfo").append(currentInfo2);
             var currentInfo3 = $("<li>").text("Temperature: " + temps[0] + " degrees");
             $("#dayCurrentInfo").append(currentInfo3);
-            var currentInfo4 = $("<li>").text("Temperature: " + humidities[0]);
+            var currentInfo4 = $("<li>").text("Humidty: " + humidities[0]);
             $("#dayCurrentInfo").append(currentInfo4);
 
             if (conditions[0] == "Rain") {
