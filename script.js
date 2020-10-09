@@ -90,7 +90,7 @@ $("#searchButton").click(function () {
             $("#dayCurrentInfo").append(currentConditions);
             var currentInfo1 = $("<li>").text(dates[0]);
             $("#dayCurrentInfo").append(currentInfo1);
-            var currentInfo2 = $("<li>").text(city);
+            var currentInfo2 = $("<li>").text("City: " + city);
             $("#dayCurrentInfo").append(currentInfo2);
             var currentInfo3 = $("<li>").text("Temperature: " + temps[0] + " degrees");
             $("#dayCurrentInfo").append(currentInfo3);
@@ -172,7 +172,7 @@ function latAndLon() {
         // Determine if UV index is low, normal, or high, and apply class.
         .then(function (response) {
 
-            windSpeed = $("<li>").text(response.current.wind_speed + " mph");
+            windSpeed = $("<li>").text("Wind: " + response.current.wind_speed + " mph");
             $("#dayCurrentInfo").append(windSpeed);
             uvIndex = response.current.uvi;
             uvIndexItem = $("<li>").text("UV Index (green: low, blue: normal, red: high): " + uvIndex);
@@ -252,7 +252,7 @@ $(document).on("click", ".pastCity", function () {
             $("#dayCurrentInfo").append(currentConditions);
             var currentInfo1 = $("<li>").text(dates[0]);
             $("#dayCurrentInfo").append(currentInfo1);
-            var currentInfo2 = $("<li>").text(city);
+            var currentInfo2 = $("<li>").text("City: " + city);
             $("#dayCurrentInfo").append(currentInfo2);
             var currentInfo3 = $("<li>").text("Temperature: " + temps[0] + " degrees");
             $("#dayCurrentInfo").append(currentInfo3);
