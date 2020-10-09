@@ -295,6 +295,13 @@ $(document).on("click", ".pastCity", function () {
                 else {
                     $(dayConditions[i]).attr("src", "images/extreme.PNG");
                 }
+
+                var info1 = $("<li>").text(dates[i]);
+                $(dayInfo[i]).append(info1);
+                var info2 = $("<li>").text("Temperature: " + temps[i]);
+                $(dayInfo[i]).append(info2);
+                var info3 = $("<li>").text("Humidity: " + humidities[i]);
+                $(dayInfo[i]).append(info3);
             }
             clearInterval(check);
         }
