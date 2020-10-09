@@ -98,19 +98,19 @@ $("#searchButton").click(function () {
             $("#dayCurrentInfo").append(currentInfo4);
 
             if (conditions[0] == "Rain") {
-                $(dayConditions[0]).attr("src", "images/rain.png");
+                $(dayConditions[0]).attr("src", "images/rain.PNG");
             }
             else if (conditions[0] == "Snow") {
-                $(dayConditions[0]).attr("src", "images/snow.png");
+                $(dayConditions[0]).attr("src", "images/snow.PNG");
             }
             else if (conditions[0] == "Clear") {
-                $(dayConditions[0]).attr("src", "images/clear.png");
+                $(dayConditions[0]).attr("src", "images/clear.PNG");
             }
             else if (conditions[0] == "Clouds") {
-                $(dayConditions[0]).attr("src", "images/clouds.png");
+                $(dayConditions[0]).attr("src", "images/clouds.PNG");
             }
             else {
-                $(dayConditions[0]).attr("src", "images/extreme.png");
+                $(dayConditions[0]).attr("src", "images/extreme.PNG");
             }
 
             // Fill in the rest of the days. The loop contains the current day as well, but this only comes in to play
@@ -119,19 +119,19 @@ $("#searchButton").click(function () {
             // weather within the HTML.
             for (i = 1; i < 6; i++) {
                 if (conditions[i] == "Rain") {
-                    $(dayConditions[i]).attr("src", "images/rain.png");
+                    $(dayConditions[i]).attr("src", "images/rain.PNG");
                 }
                 else if (conditions[i] == "Snow") {
-                    $(dayConditions[i]).attr("src", "images/snow.png");
+                    $(dayConditions[i]).attr("src", "images/snow.PNG");
                 }
                 else if (conditions[i] == "Clear") {
-                    $(dayConditions[i]).attr("src", "images/clear.png");
+                    $(dayConditions[i]).attr("src", "images/clear.PNG");
                 }
                 else if (conditions[i] == "Clouds") {
-                    $(dayConditions[i]).attr("src", "images/clouds.png");
+                    $(dayConditions[i]).attr("src", "images/clouds.PNG");
                 }
                 else {
-                    $(dayConditions[i]).attr("src", "images/extreme.png");
+                    $(dayConditions[i]).attr("src", "images/extreme.PNG");
                 }
 
                 var info1 = $("<li>").text(dates[i]);
@@ -281,19 +281,19 @@ $(document).on("click", ".pastCity", function () {
                 if (conditions[i] == "Rain") {
                     console.log(conditions[i]);
 
-                    $(dayConditions[i]).attr("src", "images/rain.png");
+                    $(dayConditions[i]).attr("src", "images/rain.PNG");
                 }
                 else if (conditions[i] == "Snow") {
-                    $(dayConditions[i]).attr("src", "images/snow.png");
+                    $(dayConditions[i]).attr("src", "images/snow.PNG");
                 }
                 else if (conditions[i] == "Clear") {
-                    $(dayConditions[i]).attr("src", "images/clear.png");
+                    $(dayConditions[i]).attr("src", "images/clear.PNG");
                 }
                 else if (conditions[i] == "Clouds") {
-                    $(dayConditions[i]).attr("src", "images/clouds.png");
+                    $(dayConditions[i]).attr("src", "images/clouds.PNG");
                 }
                 else {
-                    $(dayConditions[i]).attr("src", "images/extreme.png");
+                    $(dayConditions[i]).attr("src", "images/extreme.PNG");
                 }
             }
             clearInterval(check);
