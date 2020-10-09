@@ -262,19 +262,19 @@ $(document).on("click", ".pastCity", function () {
             if (conditions[0] == "Rain") {
                 console.log(conditions[i]);
 
-                $(dayConditions[0]).attr("src", "images/rain.png");
+                $(dayConditions[0]).attr("src", "../images/rain.png");
             }
             else if (conditions[0] == "Snow") {
-                $(dayConditions[0]).attr("src", "images/snow.png");
+                $(dayConditions[0]).attr("src", "../images/snow.png");
             }
             else if (conditions[0] == "Clear") {
-                $(dayConditions[0]).attr("src", "images/clear.png");
+                $(dayConditions[0]).attr("src", "../images/clear.png");
             }
             else if (conditions[0] == "Clouds") {
-                $(dayConditions[0]).attr("src", "images/clouds.png");
+                $(dayConditions[0]).attr("src", "../images/clouds.png");
             }
             else {
-                $(dayConditions[0]).attr("src", "images/extreme.png");
+                $(dayConditions[0]).attr("src", "../images/extreme.png");
             }
 
             for (i = 1; i < 6; i++) {
